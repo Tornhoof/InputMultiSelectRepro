@@ -1,0 +1,45 @@
+System.NullReferenceException: Object reference not set to an instance of an object.
+
+   at Microsoft.AspNetCore.Components.BindConverter.FormatterDelegateCache.<>c__DisplayClass3_0`1.<MakeArrayFormatter>g__FormatArrayValue|0(T[] value, CultureInfo culture)
+
+   at Microsoft.AspNetCore.Components.Forms.InputSelect`1.BuildRenderTree(RenderTreeBuilder builder)
+
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+
+--- End of stack trace from previous location ---
+
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+
+--- End of stack trace from previous location ---
+
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.AddToRenderQueue(Int32 componentId, RenderFragment renderFragment)
+
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+
+   at Microsoft.AspNetCore.Components.ComponentBase.CallOnParametersSetAsync()
+
+   at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()
+
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderRootComponentAsync(Int32 componentId, ParameterView initialParameters)
+
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.BeginRenderingComponent(IComponent component, ParameterView initialParameters)
+
+   at Microsoft.AspNetCore.Components.Endpoints.EndpointHtmlRenderer.RenderEndpointComponent(HttpContext httpContext, Type rootComponentType, ParameterView parameters, Boolean waitForQuiescence)
+
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+
+   at Microsoft.AspNetCore.Components.Rendering.RendererSynchronizationContext.<>c.<<InvokeAsync>b__10_0>d.MoveNext()
+
+--- End of stack trace from previous location ---
+
+   at Microsoft.AspNetCore.Antiforgery.Internal.AntiforgeryMiddleware.InvokeAwaited(HttpContext context)
+
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)

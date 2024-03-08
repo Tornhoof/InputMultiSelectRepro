@@ -1,0 +1,88 @@
+﻿@page "/"
+@using System.Diagnostics
+@inject NavigationManager NavigationManager;
+
+<PageTitle>Home</PageTitle>
+<EditForm Model="Model" method="post" OnValidSubmit="Callback" FormName="EditModelForm">
+    <InputNumber hidden="true" @bind-Value="Model.Id" readonly></InputNumber>
+    <DataAnnotationsValidator />
+    <fieldset>
+        <div class="form-group">
+            <label for="username">UserName</label>
+            <InputText id="username" class="form-control" placeholder="UserName" @bind-Value="Model.UserName" readonly></InputText>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <InputText id="email" class="form-control" placeholder="Email" @bind-Value="Model.Email"></InputText>
+        </div>
+        <div class="form-group">
+            <label>Is Active</label>
+            <div class="form-check">
+                <InputCheckbox id="isactive" class="form-check-input" type="checkbox" @bind-Value="Model.IsActive"></InputCheckbox>
+                <label for="isactive" class="form-check-label">IsActive</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>IsEmailVerified</label>
+            <div class="form-check">
+                <InputCheckbox id="isemailverified" class="form-check-input" type="checkbox" @bind-Value="Model.IsEmailVerified" disabled></InputCheckbox>
+                <label for="isemailverified" class="form-check-label">IsEmailVerified</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="roles">Roles</label>
+            <InputSelect id="roles" class="form-control" @bind-Value="Model.SelectedRoles">
+                @if(Model.CurrentRoles is not null)
+                {
+                    @foreach (var (selected, role) in Model.CurrentRoles)
+                    {
+                        <option selected="@selected">@role</option>
+                    }
+                }
+            </InputSelect>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" name="button" type="submit">Save</button>
+        </div>
+    </fieldset>
+</EditForm>
+
+@code {
+
+    [SupplyParameterFromForm] public EditModel Model { get; set; } = default!;
+
+    [Parameter] public long UserId { get; set; }
+
+    protected override void OnInitialized() => Model ??= new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // if it's a default model, the id is 0
+        if (Model.Id == 0)
+        {
+            Model = new EditModel
+            {
+                Id = 1, Email = "xxx@xxx.com", UserName = "Test User", IsActive = true, IsEmailVerified = true, CurrentRoles = new List<(bool, string)>
+                {
+                    (true, "First Role"),
+                    (false, "Second Role"),
+                    (false, "Third Role"),
+                }
+            };
+        }
+        else
+        {
+            // comment this to see NullRefException if nothing is selected
+            Model.SelectedRoles ??= [];
+        }
+    }
+
+    private async Task Callback(EditContext context)
+    {
+        // store somewhere
+        await Task.Yield();
+        // comment this to see half valid UI
+        NavigationManager.Refresh();
+    }
+
+}
